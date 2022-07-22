@@ -38,7 +38,10 @@ int i2cdev_open(struct inode *inode, struct file *file){
     file->private_data=i2c_cdev->client;
 	return 0;
 }
-/* Copy to user */
+
+/**
+ * @ Copy to user
+ */
 ssize_t i2cdev_read(struct file *file, char __user *usrBuf, size_t len, loff_t *loff){
 	int i=0, ret=0;
 	struct i2c_client *client;
@@ -51,7 +54,10 @@ ssize_t i2cdev_read(struct file *file, char __user *usrBuf, size_t len, loff_t *
 		
 	return len;
 }
-/* Copy from user */
+
+/**
+ * @ Copy from user
+ */
 ssize_t i2cdev_write(struct file *file, const char __user *usrBuf, size_t len, loff_t *loff){
 	int i=0, ret=0;
 	struct i2c_client *client;
@@ -65,7 +71,9 @@ ssize_t i2cdev_write(struct file *file, const char __user *usrBuf, size_t len, l
 	return len;	
 }
 
-/* File operations mapping */
+/**
+ * @ File operations mapping
+ */
 static const struct file_operations i2cdev_fops = {
 	.owner		= THIS_MODULE,
 	.open		= i2cdev_open,
@@ -73,7 +81,9 @@ static const struct file_operations i2cdev_fops = {
 	.write		= i2cdev_write,
 };
 
-/* Probe function */
+/**
+ * @ Probe function 
+ */
 static int my_probe(struct i2c_client *client, const struct i2c_device_id *id){
 	int i=0, ret = 0;
 	char *info = "Hello, Arduino!\n";
@@ -87,7 +97,7 @@ static int my_probe(struct i2c_client *client, const struct i2c_device_id *id){
     }
 	
 /**
- *	@ Cdev Register 
+ * @ Cdev Register 
  */
 	/* Allocate a device */
     ret=alloc_chrdev_region(&devNo, 0, 1, DRIVER_NAME);

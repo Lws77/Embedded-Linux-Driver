@@ -42,7 +42,7 @@ static int gpioled_open(struct inode *inode, struct file *filp){
 }
 
 /**
- *	@ Copy to user 
+ * @ Copy to user 
  */
 static ssize_t gpioled_read(struct file *filp, char __user *usrBuf, size_t len, loff_t *loff){
 	int ret=0;
@@ -55,7 +55,7 @@ static ssize_t gpioled_read(struct file *filp, char __user *usrBuf, size_t len, 
 }
 
 /**
- *	@ Copy from user 
+ * @ Copy from user 
  */
 static ssize_t gpioled_write(struct file *filp, const char __user *usrBuf, size_t len, loff_t *loff){
 	int ret=0;
@@ -80,7 +80,7 @@ static ssize_t gpioled_write(struct file *filp, const char __user *usrBuf, size_
 }
 
 /**
- *	@ File operations mapping 
+ * @ File operations mapping 
  */
 static struct file_operations fops={
 	.owner=THIS_MODULE,
@@ -97,7 +97,7 @@ static int __init initFunc(void){
 		return -1;
 	}
 /**
- *	@ Cdev Register 
+ * @ Cdev Register 
  */
 	/* Allocate a device */
 	ret=alloc_chrdev_region(&gpioled->devId, 0, MAX_DEVNUM, DEV_NAME);
@@ -143,7 +143,7 @@ static int __init initFunc(void){
 	}
 
 /**
- *	@ GPIO Register 
+ * @ GPIO Register 
  */		
 	/* get the device node */
 	gpioled->nd=of_find_node_by_path("/pinctrl/gpio@fe760000/gpio101_demo");
