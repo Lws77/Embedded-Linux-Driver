@@ -1,0 +1,29 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "rockchip,rk3568";
+	fragment@0 {
+		target-path= "/pinctrl";
+		__overlay__ {
+			pctrl_gpio101{
+				pctrl_gpio101: pctrl_gpio101_conf {
+					rockchip,pins = <0x03 0x05 0x00 0x104>;
+				};	
+			};
+		};
+	};
+	
+	fragment@1 {
+		target = <&gpio3>;
+		__overlay__ {
+			gpio101: gpio101_demo {
+				gpio101-gpios = <&gpio3 0x05 0x0>;
+				compatible = "gpio101";
+				status = "okay";
+				pinctrl-names = "default";
+				pinctrl-0 = <&pctrl_gpio101>;
+			};
+		};
+	};
+};
