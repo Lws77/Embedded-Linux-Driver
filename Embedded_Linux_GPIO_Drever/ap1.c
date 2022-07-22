@@ -42,10 +42,12 @@ int main(int argc, char* argv[]){
 	fd=open(FILE_PATH, O_RDWR);
 	
 	while(1){
+		/* LEN on */
 		ret=write2dev(fd, "1");
-		usleep(1*USEC);
+		usleep(0.5*USEC);
+		/* LEN off */
 		ret=write2dev(fd, "0");
-		usleep(0.6*USEC);
+		usleep(0.5*USEC);
 	}
 
 	close(fd);
