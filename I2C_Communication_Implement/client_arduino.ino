@@ -1,4 +1,3 @@
-
 #include<stdio.h>
 #include<Wire.h>
 
@@ -10,24 +9,30 @@ int i=0;
 int dataMode=0;
 int PIRMode=0;
 
-void setup() {
-  
+/**
+ * The setup function 
+ */
+void setup() {  
   pinMode(LED_BUILTIN, OUTPUT);         	// initialize digital pin LED_BUILTIN as an OUTPUT.
   pinMode(LED_PIN_9, OUTPUT);         		// initialize digital pin 9 as an OUTPUT.
   pinMode(PIR_PIN_10, INPUT);				// initialize digital pin 10 as an INPUT.
-
   Wire.begin(ARDUINO_ADDR);
-  Wire.onReceive(receiveEvent);         // register event
-  Wire.onRequest(requestEvent);         // register event
+  Wire.onReceive(receiveEvent);         	// Register event
+  Wire.onRequest(requestEvent);         	// Register event
   Serial.begin(9600);
   printf_begin();
-  Serial.println("serial strat\n");
+  Serial.println("Serial Strat\n");
 }
 
-// the loop function runs over and over again forever
+/**
+ * The loop function 
+ */
 void loop() {
+	/* read from PIR senser */
 	PIRMode=digitalRead(PIR_PIN_10);
-	printf("bliking,%d, dataMode=%d\n", i++, PIRMode);
+	printf("dataMode=%d\n", PIRMode);
+	
+	/* set LED_PIN_9 */
 	if(PIRMode){
 		digitalWrite(LED_PIN_9, HIGH);
 	}else{
@@ -36,14 +41,17 @@ void loop() {
 	delay(500);
 }
 
+
 int serial_putc(char c, FILE *) {
-  Serial.write(c);
+	Serial.write(c);
 }
-
 void printf_begin(void){
-  fdevopen(&serial_putc, 0);
+	fdevopen(&serial_putc, 0);
 }
 
+/**
+ * receiveEvent 
+ */
 void receiveEvent(int nbyte){
   while (Wire.available()) {
     Serial.println("read i2c wire\n");
@@ -52,17 +60,22 @@ void receiveEvent(int nbyte){
     }
 }
 
+/**
+ * requestEvent 
+ */
 void requestEvent(){
-  switch (PIRMode) {
-    case 0:
-      Wire.write("L",1);
-      break;
-    case 1:
-      Wire.write("H",1);
-      break;
-    default:
-      Wire.write("n",1);
-  }
+	switch (PIRMode){
+		case 0:
+		/*write to master*/
+			Wire.write("L",1);
+			break;
+		case 1:
+		/* write to master */
+			Wire.write("H",1);
+			break;
+		default:
+			Wire.write("n",1);
+	}
 }
 
 

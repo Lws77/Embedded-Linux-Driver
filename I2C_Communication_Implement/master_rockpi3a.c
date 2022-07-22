@@ -12,7 +12,9 @@ int main(int argc, char* argv[]){
 	int ret;
 	int fd1, fd2;
 	char buf[BUF_SIZE];
+	/* open i2c dev */
 	fd1=open(I2C_PATH, O_RDWR);
+	/* open gpio dev */
 	fd2=open(GPIO_PATH, O_RDWR);
 	if(fd1 && fd2){
 		printf("fd1=%d, fd2=%d\n", fd1, fd2);
@@ -21,14 +23,16 @@ int main(int argc, char* argv[]){
 	}
 	while(1){
 		memset((void*)buf, 0, BUF_SIZE);
+		/* Read from clinet(arduino) */
 		ret=read(fd1, buf, BUF_SIZE);
 		printf("buf=%c, ret=%d\n", buf[0], ret);
-		
 		switch (buf[0]){
 			case 'H':
+				/* LED on */
 				write(fd2, "1", 1);
 				break;
-			case 'L':
+			case'L':
+				/* LED off */
 				write(fd2, "0", 1);
 				break;
 			default:
