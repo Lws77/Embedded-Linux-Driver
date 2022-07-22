@@ -21,6 +21,7 @@ int write2dev(int fd, const char* _char){
 	
 	bufadr=buf;
 	while(len>0){
+		/* write to gpio dev */
 		ret=write(fd, (void *)bufadr, len);
 		if(ret<0){
 			printf("write() was failed\n");
@@ -30,17 +31,14 @@ int write2dev(int fd, const char* _char){
 	len=len-ret;
 	bufadr=bufadr+ret;
 	}
-
 	free(buf);
-
 	return len;
 }
 
 int main(int argc, char* argv[]){
 	int fd, ret;
-
+	/* open gpio dev */
 	fd=open(FILE_PATH, O_RDWR);
-	
 	while(1){
 		/* LEN on */
 		ret=write2dev(fd, "1");
@@ -49,9 +47,7 @@ int main(int argc, char* argv[]){
 		ret=write2dev(fd, "0");
 		usleep(0.5*USEC);
 	}
-
 	close(fd);
-
 	return 0;
 }
 
