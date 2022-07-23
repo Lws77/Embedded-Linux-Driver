@@ -100,11 +100,11 @@ static int my_probe(struct i2c_client *client, const struct i2c_device_id *id){
  * @ Cdev Register 
  */
 	/* Allocate a device */
-    ret=alloc_chrdev_region(&devNo, 0, 1, DRIVER_NAME);
-    if (ret<0) {
-        pr_err ("%s: Failed in alloc_chrdev_reion for arduino.\n", __func__);
-	goto out_alloc_chrdev;
-    }
+    	ret=alloc_chrdev_region(&devNo, 0, 1, DRIVER_NAME);
+    	if (ret<0) {
+        	pr_err ("%s: Failed in alloc_chrdev_reion for arduino.\n", __func__);
+		goto out_alloc_chrdev;
+    	}
 	/* Allocate memory */
 	i2c_cdev=kzalloc(sizeof(struct arduino_i2c_cdev), GFP_KERNEL); 
 	if(!i2c_cdev){
