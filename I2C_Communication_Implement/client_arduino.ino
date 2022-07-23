@@ -15,7 +15,7 @@ int PIRMode=0;
 void setup() {  
   pinMode(LED_BUILTIN, OUTPUT);         	// initialize digital pin LED_BUILTIN as an OUTPUT.
   pinMode(LED_PIN_9, OUTPUT);         		// initialize digital pin 9 as an OUTPUT.
-  pinMode(PIR_PIN_10, INPUT);				// initialize digital pin 10 as an INPUT.
+  pinMode(PIR_PIN_10, INPUT);			// initialize digital pin 10 as an INPUT.
   Wire.begin(ARDUINO_ADDR);
   Wire.onReceive(receiveEvent);         	// Register event
   Wire.onRequest(requestEvent);         	// Register event
