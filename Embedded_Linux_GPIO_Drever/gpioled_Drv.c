@@ -189,12 +189,12 @@ out_of_get_named_gpio:
 out_of_find_node_by_path:
 	device_destroy(gpioled->class, gpioled->devId);
 out_device:
-    class_destroy(gpioled->class);
+	class_destroy(gpioled->class);
 out_class:
 	cdev_del(gpioled->cdev);
 out_cdev_add:
 out_cdev_alloc:
-    unregister_chrdev_region (gpioled->devId, MAX_DEVNUM);
+	unregister_chrdev_region (gpioled->devId, MAX_DEVNUM);
 out_alloc_chrdev:
 	kfree(gpioled->cdev);
 	return ret; 
